@@ -6,9 +6,10 @@ EXPOSE 80
 # Imagen para compilar
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["api_control.csproj", "./"]
-RUN dotnet restore "api_control.csproj"
+COPY ["api_control/api_control.csproj", "api_control/"]
+RUN dotnet restore "api_control/api_control.csproj"
 COPY . .
+WORKDIR "/src/api_control"
 RUN dotnet build "api_control.csproj" -c Release -o /app/build
 
 FROM build AS publish
